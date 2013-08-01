@@ -1,3 +1,5 @@
+![](https://travis-ci.org/ropensci/rfisheries.png)
+
 # rfisheries #
 ![](https://raw.github.com/ropensci/rfisheries/master/betaLogo.png)
 
@@ -114,3 +116,6 @@ Similarly you can get landings data for multiple species. As the API evolves, we
 License: CC0
 
 This package is part of the [rOpenSci](http://ropensci.org/packages) project.
+
+
+[![](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)

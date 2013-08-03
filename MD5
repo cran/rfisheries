@@ -1,11 +1,11 @@
-cac0ad5de7623a05b7b741185f207ae6 *DESCRIPTION
+b774dc05328ab2d9a352262ceaeadf81 *DESCRIPTION
 dc8996a46ef93d799bb5af14b857706f *NAMESPACE
-87af608dcb76770fcadc94f256461d63 *NEWS
+fb1f0c3a94596280e9eb0e11f862cc42 *NEWS
 e0b7073e3e7c5260e7e8b8b9ab7f4476 *R/country_codes.R
 f720e2d435eb05ef1c734c70058071d6 *R/landings.R
-6fe75610f5c17e8c8f74b86de174c95f *R/species_codes.R
-301cc67f6526afe01cc63e423b3b32bb *README.md
+ed81a9bbece52a52f7f39ce7fdb898d7 *R/species_codes.R
+88e666ac837d1931ff3f89cfcc5aab8c *README.md
 50ecd5252dad1a247aa6002e15e15013 *inst/tests/test-rfisheries.R
 06c5d04816a94685b09fcf70b0de0e64 *man/country_codes.Rd
 3e46deca16f51d804ff1234024b42c51 *man/landings.Rd
-c88d1bf0ed77dd3ebaed1f716c87e09e *man/species_codes.Rd
+137dd02a483422ee3039830a1df313ef *man/species_codes.Rd

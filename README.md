@@ -7,7 +7,13 @@ This package provides programmatic access to the [openfisheries](http://openfish
 Open Fisheries is a platform that aggregates global fishery data and currently offers global fish capture landings from 1950 onwards (more data coming soon). Read more about that effort [here](http://openfisheries.org/about).
 
 # Installing #
-To install, you'll need the `devtools` package first.
+
+```coffee
+install.packages("rfisheries")
+```
+
+or grab the development version. To install this version you'll need the `devtools` package first.
+
 
 ```coffee
 install.packages('devtools')
@@ -20,7 +26,7 @@ Package currently provides three basic functions. Landings data can be obtained 
 
 ```coffee
 library(rfisheries)
-landings()
+of_landings()
    catch year
 1 19234925 1950
 2 21691884 1951
@@ -32,7 +38,7 @@ landings()
 
 # To get country specific data, provide a iso3c country code
 
-landings(country = "USA")
+of_landings(country = "USA")
     catch year
 1 2629961 1950
 2 2452312 1951
@@ -44,7 +50,7 @@ landings(country = "USA")
 
 # To get species specific landings, provide the correct a3 code for the required species.
 
-landings(species = "SKJ")
+of_landings(species = "SKJ")
    catch year
 1 162750 1950
 2 185848 1951
@@ -58,7 +64,7 @@ landings(species = "SKJ")
 If you don't have know the correct species or country codes, you can get a complete list with the following two functions.
 
 ```coffee
-species_codes()
+of_species_codes()
          scientific_name   taxocode a3_code isscaap
 1     Petromyzon marinus 1020100101     LAU      25
 2   Lampetra fluviatilis 1020100201     LAR      25
@@ -76,7 +82,7 @@ species_codes()
 ...
 
 # Similarly you can get a full list of country codes
-country_codes()
+of_country_codes()
          country iso3c
 1    Afghanistan   AFG
 2        Albania   ALB
@@ -91,12 +97,12 @@ country_codes()
 ```coffee
 library(plyr)
 library(rfisheries)
-countries <- country_codes()
+countries <- of_country_codes()
 # let's take a small subset, say 5 random countries
 c_list <- countries[sample(nrow(countries), 5),]$iso3c
 # and grab landings data for these countries
 results <- ldply(c_list, function(x) {
-    df <- landings(country = x)
+    df <- of_landings(country = x)
     df$country  <-  x
     df
 }, .progress = 'text')
@@ -111,11 +117,41 @@ ggplot(results, aes(year, catch, group = country, color = country)) + geom_line(
 
 Similarly you can get landings data for multiple species. As the API evolves, we'll update the package and get it to [CRAN](http://cran.r-project.org/) at some point.
 
+
+## Creative interactive charts
+
+Using the [rCharts library](http://ramnathv.github.io/rCharts/), it's easy to create interactive plots. Here's a quick example.
+
+```coffee
+library(rfisheries)
+library(rCharts)
+cod <- of_landings(species = "COD")
+cod$date <- paste0(cod$year, "-01", "-01")
+cod_plot <- mPlot(x = "date", y = "catch", type = "Line", data = cod)
+cod_plot$set(pointSize = 0, lineWidth = 4)
+cod_plot
+```
 [Please report any issues or bugs](https://github.com/ropensci/rfisheries/issues).
 
 License: CC0
 
 This package is part of the [rOpenSci](http://ropensci.org/packages) project.
 
+To cite package ‘rfisheries’ in publications use:
 
+```coffee
+  Karthik Ram, Carl Boettiger and Andrew Dyck (2013). rfisheries: R
+  interface for fisheries data. R package version 0.0.6.
+  http://CRAN.R-project.org/package=rfisheries
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {rfisheries: R interface for fisheries data},
+    author = {Karthik Ram and Carl Boettiger and Andrew Dyck},
+    year = {2013},
+    note = {R package version 0.0.6},
+    url = {http://CRAN.R-project.org/package=rfisheries},
+  }
+```
 [![](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)

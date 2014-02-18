@@ -5,6 +5,7 @@
 #' @param  species Default is \code{NA}. Download species specific data by specifying the three-letter ASFIS species code
 #' @param foptions additional optional parameters
 #' @export
+#' @import rjson
 #' @importFrom httr GET content stop_for_status
 #' @importFrom data.table rbindlist
 #' @return data.frame
@@ -42,9 +43,10 @@ of_landings <- function(country = NA, species = NA, foptions = list()) {
     }
 
     if (nrow(landings_data) == 0) {
-        stop("No data found", call. = FALSE)
+        # stop("No data found", call. = FALSE)
+        NULL
     } else {
-        return(landings_data)
+        landings_data
     }
 }
 
@@ -53,6 +55,6 @@ of_landings <- function(country = NA, species = NA, foptions = list()) {
 #' @export
 landings <- function()
 {
-  .Deprecated(new="of_landings", package="rfisheries", msg="This function is deprecated, and will be removed in a future version. See ?of_landings")
+  .Deprecated(new = "of_landings", package = "rfisheries", msg = "This function is deprecated, and will be removed in a future version. See ?of_landings")
 }
 

@@ -14,39 +14,44 @@
 #' # Landings by country
 #' of_landings(country = 'CAN')
 #' #landings by species
-#' of_landings(species = 'SKJ')
+#' of_landings(species = 'COD')
 #'}
 of_landings <- function(country = NA, species = NA, foptions = list()) {
     if (!is.na(country) && !is.na(species))
         stop("Specify country or species but not both", call. = FALSE)
     if (is.na(country) && is.na(species)) {
-        url <- "http://openfisheries.org/api/landings"
+        url <- "http://openfisheries.org/api/landings.json"
     } else if (!is.na(country) && is.na(species)) {
         url <- paste0("http://openfisheries.org/api/landings/countries/",
-            country)
+            country, ".json")
     } else {
         url <- paste0("http://openfisheries.org/api/landings/species/",
-            species)
+            species, ".json")
     }
-
     landings_call <- GET(url, foptions)
     stop_for_status(landings_call)
     landings_data_JSON <- content(landings_call)
-    if(length(landings_data_JSON) == 0) {
+    if (length(landings_data_JSON) == 0) {
         landings_data <- data.frame()
     } else {
     landings_data <- data.frame(rbindlist(landings_data_JSON))
     # Add the species as a column to avoid ambguity
-    if(!is.na(species))  landings_data <- cbind(landings_data, species)
-    # Do the same with the country.
-    if(!is.na(country))  landings_data <- cbind(landings_data, country)
+    if(!is.na(species))  {
+        landings_data <- cbind(landings_data, species)
+        landings_data$species <- as.character(landings_data$species)
+      }
+      # Do the same with the country.
+      if (!is.na(country)) {
+        landings_data <- cbind(landings_data, country)
+        landings_data$country <- as.character(landings_data$country)
+      }
     }
 
     if (nrow(landings_data) == 0) {
-        # stop("No data found", call. = FALSE)
-        NULL
+      # stop("No data found", call. = FALSE)
+      NULL
     } else {
-        landings_data
+      landings_data
     }
 }
 

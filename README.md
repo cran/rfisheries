@@ -1,30 +1,33 @@
-![](https://travis-ci.org/ropensci/rfisheries.png)
+
+Linux: ![travis](https://travis-ci.org/ropensci/rfisheries.png)  
+Windows: [![Build status](https://ci.appveyor.com/api/projects/status/agi7g487s4g53u4p)](https://ci.appveyor.com/project/karthik/rfisheries)  
+![CRAN_downloads](http://cranlogs.r-pkg.org/badges/rfisheries)  
+
 
 # rfisheries #
-![](https://raw.github.com/ropensci/rfisheries/master/betaLogo.png)
+![beta logo](https://raw.github.com/ropensci/rfisheries/master/betaLogo.png)
 
 This package provides programmatic access to the [openfisheries](http://openfisheries.org/) [API](http://openfisheries.org/api-info).
 Open Fisheries is a platform that aggregates global fishery data and currently offers global fish capture landings from 1950 onwards (more data coming soon). Read more about that effort [here](http://openfisheries.org/about).
 
 # Installing #
 
-```coffee
+```r
 install.packages("rfisheries")
 ```
 
 or grab the development version. To install this version you'll need the `devtools` package first.
 
 
-```coffee
-install.packages('devtools')
-library(devtools)
-install_github('rfisheries', 'ropensci')
+```r
+# install.packages('devtools')
+devtools::install_github('ropensci/rfisheries')
 ```
 
 # Usage #
 Package currently provides three basic functions. Landings data can be obtained by calling `landings()`
 
-```coffee
+```r
 library(rfisheries)
 of_landings()
    catch year
@@ -63,7 +66,7 @@ of_landings(species = "SKJ")
 
 If you don't have know the correct species or country codes, you can get a complete list with the following two functions.
 
-```coffee
+```r
 of_species_codes()
          scientific_name   taxocode a3_code isscaap
 1     Petromyzon marinus 1020100101     LAU      25
@@ -94,7 +97,7 @@ of_country_codes()
 
 ## Example: Compare landings from multiple countries
 
-```coffee
+```r
 library(plyr)
 library(rfisheries)
 countries <- of_country_codes()
@@ -109,11 +112,11 @@ results <- ldply(c_list, function(x) {
 ```
 
 You can easily compare these results
-```coffee
+```r
 library(ggplot2)
 ggplot(results, aes(year, catch, group = country, color = country)) + geom_line()
 ```
-![](https://raw.github.com/ropensci/rfisheries/master/multiple_countries.png)
+![multiple countries](https://raw.github.com/ropensci/rfisheries/master/multiple_countries.png)
 
 Similarly you can get landings data for multiple species. As the API evolves, we'll update the package and get it to [CRAN](http://cran.r-project.org/) at some point.
 
@@ -122,7 +125,7 @@ Similarly you can get landings data for multiple species. As the API evolves, we
 
 Using the [rCharts library](http://ramnathv.github.io/rCharts/), it's easy to create interactive plots. Here's a quick example.
 
-```coffee
+```r
 library(rfisheries)
 library(rCharts)
 cod <- of_landings(species = "COD")
@@ -133,15 +136,15 @@ cod_plot
 ```
 [Please report any issues or bugs](https://github.com/ropensci/rfisheries/issues).
 
-License: CC0
+License: MIT
 
 This package is part of the [rOpenSci](http://ropensci.org/packages) project.
 
 To cite package ‘rfisheries’ in publications use:
 
-```coffee
+```r
   Karthik Ram, Carl Boettiger and Andrew Dyck (2013). rfisheries: R
-  interface for fisheries data. R package version 0.0.6.
+  interface for fisheries data. R package version 0.1.
   http://CRAN.R-project.org/package=rfisheries
 
 A BibTeX entry for LaTeX users is
@@ -150,8 +153,8 @@ A BibTeX entry for LaTeX users is
     title = {rfisheries: R interface for fisheries data},
     author = {Karthik Ram and Carl Boettiger and Andrew Dyck},
     year = {2013},
-    note = {R package version 0.0.6},
+    note = {R package version 0.1},
     url = {http://CRAN.R-project.org/package=rfisheries},
   }
 ```
-[![](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+[![footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
